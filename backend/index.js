@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api' , productRoutes);
-app.use('/api' , UserRoutes);
+app.use('/api', UserRoutes);
 
 
 
@@ -30,7 +30,7 @@ mongoose.connect(process.env.MONGODB_URI)
         res.send('Funcionando');
     });
 
-    app.use('/usuarios', UserRoutes);
+    
 
     app.listen(port, () => {
         console.log(`Servidor rodando na porta ${port}`);

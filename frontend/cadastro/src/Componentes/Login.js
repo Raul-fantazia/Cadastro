@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import { Link, useNavigate } from 'react-router-dom';
 
 function Login () {
     //info do usuario 
@@ -8,6 +8,7 @@ function Login () {
     const [senha, setSenha] = useState('');
     const [mensagemErro, setMensagemErro] = useState('');
     const [mensagemSucesso, setMensagemSucesso] = useState('');
+    const navigate = useNavigate();
 
     //configurando form
     const handleSubmit = async (event) => {
@@ -25,6 +26,10 @@ function Login () {
             if (response.status === 200) {
                 setMensagemSucesso(response.data.message);
                 console.log('Login efetuado', response.data);
+                //redirecionando para o crud
+                setTimeout(() =>{
+                    navigate('/produtos');
+                },2000)
             } else {
                 setMensagemErro(response.data.message || 'Erro ao fazer login');
                 console.error('Erro no login' , response.data);
@@ -32,13 +37,13 @@ function Login () {
 
         } catch(error) {
             if(error.response) {
-                setMensagemSucesso('Não foi possível se conectar');
+                setMensagemErro(`Erro no login: ${error.response.data.message || 'Erro desconhecido'}`)
                 console.error('Erro no login', error.response.data);
             } else if(error.request){
                 setMensagemErro('Não foi possivel conectar o servidor');
                 console.error('Erro de conexão', error.request)
             } else {
-                setMensagemErro('Erro ao fazer login');
+                setMensagemErro(`Erro ao fazer login: ${error.message}`);
                 console.error('Erro de requisição', error.message);
             }
         }
@@ -73,6 +78,9 @@ function Login () {
                 </div>
                 <button type= "submit">Entrar</button>
             </form>
+            <p>
+                Não tem conta? <Link to="/criar-conta">Criar conta</Link>
+            </p>
           
         </div>
     );

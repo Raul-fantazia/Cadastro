@@ -18,7 +18,7 @@ function CriarConta () {
 
             // enviando as infos do usuario para o banco de dados 
         try {
-            const response = await axios.post('http://localhost:8000/api/usuarios' , {
+            const response = await axios.post('http://localhost:8000/usuarios' , {
                 nome,
                 email,
                 senha,
@@ -56,9 +56,9 @@ function CriarConta () {
                     <label htmlFor='nome'>Nome:</label>
                     <input 
                     type="text"
-                    id="nomel"
+                    id="nome"
                     value= { nome }
-                    onChange= {(e) => setEmail(e.target.value)}
+                    onChange= {(e) => setNome(e.target.value)}
                     required
                     />
                 </div>
